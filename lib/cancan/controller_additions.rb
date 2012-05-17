@@ -342,14 +342,14 @@ module CanCan
     # Just define the method in the controller to change behavior.
     #
     #   def current_ability
-    #     # instead of Ability.new(current_user)
+    #     # instead of Ability.new(current_individual)
     #     @current_ability ||= UserAbility.new(current_account)
     #   end
     #
     # Notice it is important to cache the ability object so it is not
     # recreated every time.
     def current_ability
-      @current_ability ||= ::Ability.new(current_user)
+      @current_ability ||= ::Ability.new(current_individual)
     end
 
     # Use in the controller or view to check the user's permission for a given action
