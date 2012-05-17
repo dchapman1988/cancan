@@ -2,7 +2,7 @@
 
 Wiki[https://github.com/ryanb/cancan/wiki] | RDocs[http://rdoc.info/projects/ryanb/cancan] | Screencast[http://railscasts.com/episodes/192-authorization-with-cancan]
 
-CanCan is an authorization library for Ruby on Rails which restricts what resources a given user is allowed to access. All permissions are defined in a single location (the +Ability+ class) and not duplicated across controllers, views, and database queries.
+CanCan is an authorization library for Ruby on Rails which restricts what resources a given individual is allowed to access. All permissions are defined in a single location (the +Ability+ class) and not duplicated across controllers, views, and database queries.
 
 
 == Installation
@@ -36,7 +36,7 @@ In Rails 2.3, just add a new class in `app/models/ability.rb` with the folowing 
   class Ability
     include CanCan::Ability
 
-    def initialize(user)
+    def initialize(individual)
     end
   end
 
@@ -45,7 +45,7 @@ See {Defining Abilities}[https://github.com/ryanb/cancan/wiki/defining-abilities
 
 === 2. Check Abilities & Authorization
 
-The current user's permissions can then be checked using the <tt>can?</tt> and <tt>cannot?</tt> methods in the view and controller.
+The current individual's permissions can then be checked using the <tt>can?</tt> and <tt>cannot?</tt> methods in the view and controller.
 
   <% if can? :update, @article %>
     <%= link_to "Edit", edit_article_path(@article) %>
@@ -53,7 +53,7 @@ The current user's permissions can then be checked using the <tt>can?</tt> and <
 
 See {Checking Abilities}[https://github.com/ryanb/cancan/wiki/checking-abilities] for more information
 
-The <tt>authorize!</tt> method in the controller will raise an exception if the user is not able to perform the given action.
+The <tt>authorize!</tt> method in the controller will raise an exception if the individual is not able to perform the given action.
 
   def show
     @article = Article.find(params[:id])
@@ -75,7 +75,7 @@ See {Authorizing Controller Actions}[https://github.com/ryanb/cancan/wiki/author
 
 === 3. Handle Unauthorized Access
 
-If the user authorization fails, a <tt>CanCan::AccessDenied</tt> exception will be raised. You can catch this and modify its behavior in the +ApplicationController+.
+If the individual authorization fails, a <tt>CanCan::AccessDenied</tt> exception will be raised. You can catch this and modify its behavior in the +ApplicationController+.
 
   class ApplicationController < ActionController::Base
     rescue_from CanCan::AccessDenied do |exception|

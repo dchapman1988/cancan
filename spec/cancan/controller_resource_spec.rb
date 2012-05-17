@@ -288,7 +288,7 @@ describe CanCan::ControllerResource do
     category = Object.new
     @controller.instance_variable_set(:@category, category)
     stub(category).projects.stub!.find(123) { :some_project }
-    resource = CanCan::ControllerResource.new(@controller, :through => [:category, :user])
+    resource = CanCan::ControllerResource.new(@controller, :through => [:category, :individual])
     resource.load_resource
     @controller.instance_variable_get(:@project).should == :some_project
   end

@@ -9,8 +9,8 @@ module CanCan
       #
       #   @articles = Article.accessible_by(current_ability)
       #
-      # Here only the articles which the user is able to read will be returned.
-      # If the user does not have permission to read any articles then an empty
+      # Here only the articles which the individual is able to read will be returned.
+      # If the individual does not have permission to read any articles then an empty
       # result is returned. Since this is a scope it can be combined with any
       # other scopes or pagination.
       #
@@ -18,7 +18,7 @@ module CanCan
       #
       #   @articles = Article.accessible_by(current_ability, :update)
       #
-      # Here only the articles which the user can update are returned.
+      # Here only the articles which the individual can update are returned.
       def accessible_by(ability, action = :index)
         ability.model_adapter(self, action).database_records
       end

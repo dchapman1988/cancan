@@ -158,7 +158,7 @@ describe CanCan::Ability do
     @ability.can?(:read, "foo").should be_false
   end
 
-  it "should support 'cannot' method to define what user cannot do" do
+  it "should support 'cannot' method to define what individual cannot do" do
     @ability.can :read, :all
     @ability.cannot :read, Integer
     @ability.can?(:read, "foo").should be_true

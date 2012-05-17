@@ -6,8 +6,8 @@ module CanCan
   #   class Ability
   #     include CanCan::Ability
   #
-  #     def initialize(user)
-  #       if user.admin?
+  #     def initialize(individual)
+  #       if individual.admin?
   #         can :manage, :all
   #       else
   #         can :read, :all
@@ -16,7 +16,7 @@ module CanCan
   #   end
   #
   module Ability
-    # Check if the user has permission to perform a given action on an object.
+    # Check if the individual has permission to perform a given action on an object.
     #
     #   can? :destroy, @project
     #
@@ -30,7 +30,7 @@ module CanCan
     #   can? :create, @category => Project
     #
     # Any additional arguments will be passed into the "can" block definition. This
-    # can be used to pass more information about the user's request for example.
+    # can be used to pass more information about the individual's request for example.
     #
     #   can? :create, Project, request.remote_ip
     #
@@ -43,12 +43,12 @@ module CanCan
     #
     #   ability.can? :destroy, @project
     #
-    # This makes testing a user's abilities very easy.
+    # This makes testing a individual's abilities very easy.
     #
-    #   def test "user can only destroy projects which he owns"
-    #     user = User.new
-    #     ability = Ability.new(user)
-    #     assert ability.can?(:destroy, Project.new(:user => user))
+    #   def test "individual can only destroy projects which he owns"
+    #     individual = User.new
+    #     ability = Ability.new(individual)
+    #     assert ability.can?(:destroy, Project.new(:individual => individual))
     #     assert ability.cannot?(:destroy, Project.new)
     #   end
     #
@@ -74,7 +74,7 @@ module CanCan
     #   can :update, Article
     #
     # You can pass an array for either of these parameters to match any one.
-    # Here the user has the ability to update or destroy both articles and comments.
+    # Here the individual has the ability to update or destroy both articles and comments.
     #
     #   can [:update, :destroy], [Article, Comment]
     #
@@ -84,9 +84,9 @@ module CanCan
     #   can :update, :all
     #   can :manage, Project
     #
-    # You can pass a hash of conditions as the third argument. Here the user can only see active projects which he owns.
+    # You can pass a hash of conditions as the third argument. Here the individual can only see active projects which he owns.
     #
-    #   can :read, Project, :active => true, :user_id => user.id
+    #   can :read, Project, :active => true, :individual_id => individual.id
     #
     # See ActiveRecordAdditions#accessible_by for how to use this in database queries. These conditions
     # are also used for initial attributes when building a record in ControllerAdditions#load_resource.
@@ -95,10 +95,10 @@ module CanCan
     # along with any Ruby code you want.
     #
     #   can :update, Project do |project|
-    #     project.groups.include?(user.group)
+    #     project.groups.include?(individual.group)
     #   end
     #
-    # If the block returns true then the user has that :update ability for that project, otherwise he
+    # If the block returns true then the individual has that :update ability for that project, otherwise he
     # will be denied access. The downside to using a block is that it cannot be used to generate
     # conditions for database queries.
     #

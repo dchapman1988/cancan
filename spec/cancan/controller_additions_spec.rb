@@ -20,7 +20,7 @@ describe CanCan::ControllerAdditions do
     @controller.instance_variable_get(:@_authorized).should be_true
   end
 
-  it "should have a current_ability method which generates an ability for the current user" do
+  it "should have a current_ability method which generates an ability for the current individual" do
     @controller.current_ability.should be_kind_of(Ability)
   end
 

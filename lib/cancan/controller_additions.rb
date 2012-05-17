@@ -118,7 +118,7 @@ module CanCan
 
       # Sets up a before filter which authorizes the resource using the instance variable.
       # For example, if you have an ArticlesController it will check the @article instance variable
-      # and ensure the user can perform the current action on it. Under the hood it is doing
+      # and ensure the individual can perform the current action on it. Under the hood it is doing
       # something like the following.
       #
       #   authorize!(params[:action].to_sym, @article || Article)
@@ -311,12 +311,12 @@ module CanCan
     #     unauthorized:
     #       manage:
     #         all: "Not authorized to %{action} %{subject}."
-    #         user: "Not allowed to manage other user accounts."
+    #         individual: "Not allowed to manage other individual accounts."
     #       update:
     #         project: "Not allowed to update this project."
     #
     # You can rescue from the exception in the controller to customize how unauthorized
-    # access is displayed to the user.
+    # access is displayed to the individual.
     #
     #   class ApplicationController < ActionController::Base
     #     rescue_from CanCan::AccessDenied do |exception|
@@ -337,7 +337,7 @@ module CanCan
       raise ImplementationRemoved, "The unauthorized! method has been removed from CanCan, use authorize! instead."
     end
 
-    # Creates and returns the current user's ability and caches it. If you
+    # Creates and returns the current individual's ability and caches it. If you
     # want to override how the Ability is defined then this is the place.
     # Just define the method in the controller to change behavior.
     #
@@ -352,7 +352,7 @@ module CanCan
       @current_ability ||= ::Ability.new(current_individual)
     end
 
-    # Use in the controller or view to check the user's permission for a given action
+    # Use in the controller or view to check the individual's permission for a given action
     # and object.
     #
     #   can? :destroy, @project
